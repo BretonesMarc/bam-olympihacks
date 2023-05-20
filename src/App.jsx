@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 // import pages
 import Home from './pages/Home'
 import About from './pages/About'
-import SingleCompany from './pages/SingleCompany'
+import SingleOrganization from './pages/SingleOrganization'
 import Error from './pages/Error'
 // import components
 import Navbar from './components/Navbar'
+//import Dashboard from './pages/FindOrganizations'
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="company/:id" element={<SingleCompany />} />
+        <Route path="organization/:id" element={<SingleOrganization />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
