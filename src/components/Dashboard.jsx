@@ -15,7 +15,7 @@ const Dashboard = ({ myContract, account }) => {
 
   const getCompany = async () => {
     try {
-      const company = await myContract.methods.getCompany().call()
+      const company = await myContract?.methods.getCompany().call()
       setFullCompany({
         name: company.name,
         location: company.location,
@@ -40,7 +40,7 @@ const Dashboard = ({ myContract, account }) => {
 
   useEffect(() => {
     getCompany()
-    getCertifications()
+    // getCertifications()
   }, [myContract])
 
   return (

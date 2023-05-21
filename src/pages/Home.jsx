@@ -9,7 +9,6 @@ import { my_Contract_Address, my_Contract_ABI } from '../contract'
 const Home = () => {
   const [account, setAccount] = useState(null)
   const [myContract, setMyContract] = useState(null)
-
   const [addressesCompany, setAddressesCompany] = useState([])
   const [company, setCompany] = useState({
     name: '',
@@ -20,8 +19,6 @@ const Home = () => {
     location: '',
     certificatesNumber: 0,
   })
-  const [companyID, setCompanyID] = useState(null)
-  // const [companies, setCompanies] = useState([])
 
   const handleChange = (e) => {
     setCompany({ ...company, [e.target.name]: e.target.value })
@@ -51,6 +48,7 @@ const Home = () => {
       const addresses = await myContract?.methods
         .getAddressesWithCompanies()
         .call()
+      console.log(addresses)
       if (addresses) {
         setAddressesCompany(addresses)
       }
@@ -58,19 +56,6 @@ const Home = () => {
       console.error('Error getting addresses with companies:', error)
     }
   }
-
-  const getCompanies = async () => {
-    // try {
-    //   const companies = await myContract?.methods.getCompanies().call()
-    //   console.log(companies)
-    //   // if (companies) {
-    //   //   setCompanies(companies)
-    //   // }
-    // } catch (error) {
-    //   console.error('Error getting companies:', error)
-    // }
-  }
-
   // useEffects
   useEffect(() => {
     getAddressesWithCompanies()
@@ -98,8 +83,6 @@ const Home = () => {
     if (myContract && account) {
       getCompany()
     }
-
-    getCompanies()
   }, [myContract, account])
 
   const createCompany = async (e) => {
@@ -142,20 +125,8 @@ const Home = () => {
             fullCompany={fullCompany}
             myContract={myContract}
             account={account}
-            companyID={companyID}
           />
           <SidePanel myContract={myContract} account={account} />
-          {/* <div>
-            {companies.map((company, index) => {
-              return (
-                <div key={index}>
-                  <h3>{company.name}</h3>
-                  <p>{company.address}</p>
-                  <p>{company.ids}</p>
-                </div>
-              )
-            })}
-          </div> */}
         </section>
       </main>
     )
