@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0x08933C6cA852a3c207ADC09d0cADb7ba1B203cAc'
+export const my_Contract_Address = '0xbEcA931705fc1F178e4Df1CF3Be2222ca366b351'
 export const my_Contract_ABI = [
   {
     inputs: [
@@ -166,50 +166,6 @@ export const my_Contract_ABI = [
         internalType: 'struct CompanyFactory.Partners[]',
         name: '',
         type: 'tuple[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    name: 'newCompanies',
-    outputs: [
-      {
-        internalType: 'string',
-        name: 'name',
-        type: 'string',
-      },
-      {
-        internalType: 'string',
-        name: 'location',
-        type: 'string',
-      },
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: 'id',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'certificatesNumber',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'partnersNumber',
-        type: 'uint256',
       },
     ],
     stateMutability: 'view',
