@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-center">
-        <Link to="/">OlympiHack APP</Link>
+        <Link to="/">OlympiHackAPP</Link>
         <ul className="nav-links">
           <li>
             <Link to="/">home</Link>

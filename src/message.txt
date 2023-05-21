@@ -1,0 +1,117 @@
+import React, { useState, useEffect, useRef } from 'react';
+import Web3 from 'web3';
+import './App.css';
+import Graph from 'react-graph-vis';
+
+function App() {
+  const [account, setAccount] = useState(null);
+  const [graph, setGraph] = useState(null);
+
+  const handleSignUp = async () => {
+    if (window.ethereum) {
+      try {
+        // Request account access from MetaMask
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        // Create a new web3 instance
+        const web3 = new Web3(window.ethereum);
+
+        // Get the current account
+        const accounts = await web3.eth.getAccounts();
+        const selectedAccount = accounts[0];
+
+        // Update the account state
+        setAccount(selectedAccount);
+      } catch (error) {
+        console.error('Error connecting to MetaMask:', error);
+      }
+    } else {
+      console.error('MetaMask not detected.');
+    }
+  };
+
+  useEffect(() => {
+    if (account) {
+      // Create an employee organizational graph
+      const nodes = [
+        { id: 1, label: 'Org 1', level: 1, color: '#FFC107' },
+        { id: 2, label: 'Org 2', level: 2, color: '#F44336' },
+        { id: 3, label: 'Org 3', level: 2, color: '#F44336' },
+        { id: 4, label: 'Org 4', level: 3, color: '#4CAF50' },
+        { id: 5, label: 'Org 5', level: 3, color: '#4CAF50' },
+        { id: 6, label: 'Org ', level: 3, color: '#4CAF50' },
+      ];
+
+      const edges = [
+        { from: 1, to: 2 },
+        { from: 1, to: 3 },
+        { from: 2, to: 4 },
+        { from: 2, to: 5 },
+        { from: 3, to: 6 },
+      ];
+
+      const graphData = {
+        nodes,
+        edges,
+      };
+
+      setGraph(graphData);
+    }
+  }, [account]);
+
+  const options = {
+    layout: {
+      hierarchical: {
+        enabled: true,
+        levelSeparation: 150,
+        nodeSpacing: 200,
+        treeSpacing: 200,
+        blockShifting: true,
+        edgeMinimization: true,
+        parentCentralization: true,
+        direction: 'UD', // Up-Down direction
+        sortMethod: 'directed',
+      },
+    },
+    edges: {
+      color: '#000000',
+    },
+    nodes: {
+      shape: 'box',
+      font: {
+        color: '#FFFFFF',
+      },
+    },
+  };
+
+  return (
+    <div className="container">
+      {account ? (
+        <div className="row justify-content-center align-items-center vh-100">
+          <div className="col-lg-6 col-md-8 col-sm-10">
+            <h1 className="text-center mb-4">Welcome to Your Dashboard</h1>
+            <p className="text-center">Your organisation address: {account}</p>
+          </div>
+          <div className="col-lg-6 col-md-8 col-sm-10">
+            <div className="graph-container">
+              {graph && <Graph graph={graph} options={options} style={{ height: '400px' }} />}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="row">
+        <div className="col-lg-3 col-md-8 col-sm-10 text-center mt-4">
+          <button className="btn btn-primary btn-lg btn-block" onClick={handleSignUp}>
+            Connect to MetaMask
+          </button>
+        </div>
+        <div className="col-lg-6 text-center mt-4">
+          <h1>Welcome to Harmony Hub</h1>
+        </div>
+      </div>
+      )}
+    </div>
+  );
+}
+
+export default App;

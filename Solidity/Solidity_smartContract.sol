@@ -1,210 +1,147 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.0 <0.9.0;
 
-pragma solidity ^0.8.0;
-
-contract PlatformSharing {
-    address public owner;
-    mapping(address => bool) public authorizedCompanies;
+contract CompanyFactory {
+    struct Partners {
+        uint id;
+        string visibility;
+    }
 
     struct Company {
         string name;
         string location;
-        uint256 statistics;
-        bool isCertifiedISO;
-        bool sponsorship;
         address owner;
-        uint256 timestamp;
-        mapping(address => bool) sentTemplates;
-        mapping(address => bool) partners;
-        mapping(address => VisibilityLevel) visibilityLevels;
+        uint id;
+
+        // Number of iso certificates
+        uint certificatesNumber;
+        mapping(uint => string) certificates;
+
+        uint partnersNumber;
+        mapping(uint => Partners) partners;
     }
 
-    mapping(uint => Company) public Companies;
-    uint public Company_Counter;
+    uint numberOfCompanies = 0;
+    mapping(uint => Company) companies;
 
-    enum VisibilityLevel {
-        Public,
-        Transparent,
-        Private
+    mapping(address => uint) public userCompanies; 
+
+    function getAddressesWithCompanies() public view returns (address[] memory) {
+        uint count = 0;
+
+        // Count the number of addresses with companies
+        for (uint i = 0; i < numberOfCompanies; i++) {
+            if (userCompanies[companies[i].owner] == i) {
+                count++;
+            }
+        }
+
+        // Create an array to store the addresses
+        address[] memory addressesWithCompanies = new address[](count);
+
+        // Populate the array with addresses
+        uint index = 0;
+        for (uint i = 0; i < numberOfCompanies; i++) {
+            if (userCompanies[companies[i].owner] == i) {
+                addressesWithCompanies[index] = companies[i].owner;
+                index++;
+            }
+        }
+
+        return addressesWithCompanies;
     }
 
-    mapping(address => Company) public Allcompanies;
+    // Create a new company
+    function createCompany(string memory _name, string memory _location) public {
+        require(userCompanies[msg.sender] == 0, "You can only create one company");
 
-    event CertificationUpdated(address indexed company, bool isCertified);
-    event StatisticsUpdated(address indexed company, uint256 statistics);
-    event PartnershipOrSponsorshipUpdated(
-        address indexed company,
-        bool hasPartnership
-    );
-    event TemplateSent(address indexed sender, address indexed recipient);
-    event VisibilityLevelUpdated(
-        address indexed company,
-        address indexed partner,
-        VisibilityLevel level
-    );
+        uint companyID = numberOfCompanies++;
 
-    constructor() {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner() {
-        require(
-            msg.sender == owner,
-            "Only the contract owner can call this function"
-        );
-        _;
-    }
-
-    modifier onlyAuthorizedCompany() {
-        require(
-            authorizedCompanies[msg.sender] == true,
-            "Only authorized companies can call this function"
-        );
-        _;
-    }
-
-    function addAuthorizedCompany(address company) external onlyOwner {
-        authorizedCompanies[company] = true;
-    }
-
-    function removeAuthorizedCompany(address company) external onlyOwner {
-        authorizedCompanies[company] = false;
-    }
-
-    function createCompany(
-        string memory _name,
-        string memory _location,
-        uint _statistics,
-        bool _isCertifiedISO,
-        bool _sponsorship
-    ) public {
-        Company_Counter++;
-        Company storage newCompany = Companies[Company_Counter];
+        Company storage newCompany = companies[companyID];
         newCompany.name = _name;
         newCompany.location = _location;
-        newCompany.statistics = _statistics;
-        newCompany.isCertifiedISO = _isCertifiedISO;
-        newCompany.sponsorship = _sponsorship;
         newCompany.owner = msg.sender;
-        newCompany.timestamp = block.timestamp;
+        newCompany.id = companyID;
+
+        userCompanies[msg.sender] = companyID; // Stocker l'ID de la compagnie pour cet utilisateur
     }
 
-    function updateCertificationStatus(
-        bool _isCertified
-    ) external onlyAuthorizedCompany {
-        Allcompanies[msg.sender].isCertifiedISO = _isCertified;
-        emit CertificationUpdated(msg.sender, _isCertified);
+  function addCertifications(uint _companyID, string memory _iso) public {
+        Company storage company = companies[_companyID];
+        company.certificates[company.certificatesNumber++] = _iso;
     }
 
-    function updateStatistics(
-        uint256 _companyStatistics
-    ) external onlyAuthorizedCompany {
-        Allcompanies[msg.sender].statistics = _companyStatistics;
-        emit StatisticsUpdated(msg.sender, _companyStatistics);
-    }
-
-    function updateSponsorship(
-        bool _hasSponsorship
-    ) external onlyAuthorizedCompany {
-        Allcompanies[msg.sender].sponsorship = _hasSponsorship;
-        emit PartnershipOrSponsorshipUpdated(msg.sender, _hasSponsorship);
-    }
-
-    function sendContractTemplate(
-        address _recipient
-    ) external onlyAuthorizedCompany {
-        require(
-            Allcompanies[_recipient].visibilityLevels[msg.sender] !=
-                VisibilityLevel.Private,
-            "Recipient's visibility level is private"
-        );
-        Allcompanies[msg.sender].sentTemplates[_recipient] = true;
-        emit TemplateSent(msg.sender, _recipient);
-    }
-
-    function setVisibilityLevel(
-        address _partner,
-        VisibilityLevel _level
-    ) external onlyAuthorizedCompany {
-        Allcompanies[msg.sender].visibilityLevels[_partner] = _level;
-        emit VisibilityLevelUpdated(msg.sender, _partner, _level);
-    }
-
-    function addPartner(
-        address _partner,
-        VisibilityLevel _level
-    ) external onlyAuthorizedCompany {
-        Allcompanies[msg.sender].partners[_partner] = true;
-        Allcompanies[msg.sender].visibilityLevels[_partner] = _level;
-        emit VisibilityLevelUpdated(msg.sender, _partner, _level);
-    }
-
-    function removePartner(address _partner) external onlyAuthorizedCompany {
-        Allcompanies[msg.sender].partners[_partner] = false;
-        emit VisibilityLevelUpdated(
-            msg.sender,
-            _partner,
-            VisibilityLevel.Private
-        );
-    }
-
-    function getCompany(
-        address _company
-    )
-        external
-        view
-        returns (bool isCertifiedISO, uint256 statistics, bool sponsorship)
-    {
-        VisibilityLevel level = Allcompanies[_company].visibilityLevels[
-            msg.sender
-        ];
-        if (level == VisibilityLevel.Private) {
-            return (
-                Allcompanies[_company].isCertifiedISO,
-                Allcompanies[_company].statistics,
-                Allcompanies[_company].sponsorship
-            );
-        } else if (level == VisibilityLevel.Transparent) {
-            return (
-                Allcompanies[_company].isCertifiedISO,
-                0,
-                Allcompanies[_company].sponsorship
-            );
-        } else if (level == VisibilityLevel.Public) {
-            return (Allcompanies[_company].isCertifiedISO, 0, false);
+    function getCertifications(uint _companyID) public view returns (string[] memory) {
+        Company storage company = companies[_companyID];
+        string[] memory certificates = new string[](company.certificatesNumber);
+        for (uint i = 0; i < company.certificatesNumber; i++) {
+            certificates[i] = company.certificates[i];
         }
+        return certificates;
+    }
+
+    function getPartners(uint _companyID) public view returns(Partners[] memory) {
+        Company storage company = companies[_companyID];
+        Partners[] memory partners = new Partners[](company.partnersNumber);
+        for (uint i = 0; i < company.certificatesNumber; i++) {
+            partners[i] = company.partners[i];
+        }
+        return partners;
+    }
+
+    function getCompany(uint _companyID) public view returns (string memory name, string memory location, uint certificatesNumber) {
+        Company storage company = companies[_companyID];
+        return (company.name, company.location, company.certificatesNumber);
+    }
+
+      function getCompanies() public view returns (string[] memory, address[] memory) {
+        string[] memory names = new string[](numberOfCompanies);
+        address[] memory ownersList = new address[](numberOfCompanies);
+
+        for (uint i = 0; i < numberOfCompanies; i++) {
+            names[i] = companies[i].name;
+            ownersList[i] = companies[i].owner;
+        }
+
+        return (names, ownersList);
+    }
+
+    function addPartner(uint _myCompanyID, uint _companyID) public {
+        Company storage c = companies[_myCompanyID];
+        c.partners[c.partnersNumber++] = Partners({id: _companyID, visibility: "public"});
+    }
+
+    function seeRequests(uint _myCompanyID) public view returns (uint[] memory) {
+        uint[] memory companyRequests;
+        uint count = 0;
+
+        for (uint i = 0; i < numberOfCompanies; i++) {
+            if (_myCompanyID != i) {
+                Company storage company = companies[i];
+                for (uint j = 0; j < company.partnersNumber; j++) {
+                    Partners storage partner = company.partners[j];
+                    if (partner.id == _myCompanyID) {
+                        // Ajouter la demande de partenariat à la liste
+                        if (count == 0) {
+                            // Si c'est la première demande, initialiser le tableau avec une taille de 1
+                            companyRequests = new uint[](1);
+                        } else {
+                            // Sinon, étendre la taille du tableau de demandes
+                            uint[] memory temp = new uint[](count + 1);
+                            for (uint k = 0; k < count; k++) {
+                                temp[k] = companyRequests[k];
+                            }
+                            companyRequests = temp;
+                        }
+
+                        // Ajouter la demande à la fin du tableau
+                        companyRequests[count] = company.id;
+                        count++;
+                    }
+                }
+            }
+        }
+
+        return companyRequests;
     }
 }
-
-/*contract YourContract {
-    enum VisibilityLevel {
-        Private,
-        Public,
-        Transparent
-    }
-
-    struct Company {
-        bool isCertifiedISO;
-        uint256 companyStatistics;
-        bool hasPartnershipOrSponsorship;
-        mapping(address => bool) sentTemplates;
-        mapping(address => bool) partners;
-        mapping(address => VisibilityLevel) visibilityLevels;
-    }
-
-    mapping(address => Company) companies;
-
-    function createCompany(
-        address companyAddress,
-        bool isCertifiedISO,
-        uint256 statistics,
-        bool sponsorship
-    ) external {
-        Company memory newCompany;
-        newCompany.isCertifiedISO = isCertifiedISO;
-        newCompany.companyStatistics = companyStatistics;
-        newCompany.hasPartnershipOrSponsorship = hasPartnershipOrSponsorship;
-
-        companies[companyAddress] = newCompany;
-    }
-}*/
