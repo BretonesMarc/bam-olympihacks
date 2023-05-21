@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload</title>
+</head>
+<body>
+  <h1>File Upload Example</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <button type="submit">Upload</button>
+  </form>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const fileInput = document.querySelector('input[type="file"]');
+      const file = fileInput.files[0];
+
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('http://0.0.0.0:2929/upload', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Upload success:', data);
+            // Handle the server response here
+          })
+          .catch(error => {
+            console.error('Upload error:', error);
+            // Handle any error that occurred during upload
+          });
+      }
+    });
+  </script>
+</body>
+</html>
