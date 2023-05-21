@@ -51,7 +51,6 @@ const Home = () => {
       const addresses = await myContract?.methods
         .getAddressesWithCompanies()
         .call()
-      console.log(addresses)
       if (addresses) {
         setAddressesCompany(addresses)
       }
@@ -60,25 +59,16 @@ const Home = () => {
     }
   }
 
-  const getCompanyID = async () => {
-    try {
-      const companyID = await myContract?.methods.getCompanyID().call()
-      console.log(`L'id de la company est : ${companyID}`)
-    } catch (error) {
-      console.error('Error getting company ID:', error)
-    }
-  }
-
   const getCompanies = async () => {
-    try {
-      const companies = await myContract?.methods.getCompanies().call()
-      console.log(companies)
-      // if (companies) {
-      //   setCompanies(companies)
-      // }
-    } catch (error) {
-      console.error('Error getting companies:', error)
-    }
+    // try {
+    //   const companies = await myContract?.methods.getCompanies().call()
+    //   console.log(companies)
+    //   // if (companies) {
+    //   //   setCompanies(companies)
+    //   // }
+    // } catch (error) {
+    //   console.error('Error getting companies:', error)
+    // }
   }
 
   // useEffects
@@ -94,7 +84,7 @@ const Home = () => {
     //console.log(account)
     const getCompany = async () => {
       try {
-        const company = await myContract.methods.getCompany(companyID).call()
+        const company = await myContract.methods.getCompany().call()
         setFullCompany({
           name: company.name,
           location: company.location,
@@ -105,15 +95,11 @@ const Home = () => {
       }
     }
 
-    if (myContract && account && companyID) {
+    if (myContract && account) {
       getCompany()
     }
 
     getCompanies()
-  }, [myContract, account])
-
-  useEffect(() => {
-    getCompanyID()
   }, [myContract, account])
 
   const createCompany = async (e) => {

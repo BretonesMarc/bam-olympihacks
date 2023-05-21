@@ -1,34 +1,66 @@
-export const my_Contract_Address = '0xbEcA931705fc1F178e4Df1CF3Be2222ca366b351'
+export const my_Contract_Address = '0x23AD20aFa89923572255e67fbC15313a1ceB92A2'
 export const my_Contract_ABI = [
   {
     inputs: [
       {
-        internalType: 'string',
-        name: '_iso',
-        type: 'string',
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    name: 'addCertifications',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    name: 'companies',
+    outputs: [
+      {
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+      {
+        internalType: 'string',
+        name: 'location',
+        type: 'string',
+      },
+      {
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'certificatesNumber',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'partnersNumber',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
     inputs: [
       {
         internalType: 'uint256',
-        name: '_myCompanyID',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_companyID',
+        name: '',
         type: 'uint256',
       },
     ],
-    name: 'addPartner',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    name: 'connectedAddresses',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -64,48 +96,6 @@ export const my_Contract_ABI = [
   },
   {
     inputs: [],
-    name: 'getCertifications',
-    outputs: [
-      {
-        internalType: 'string[]',
-        name: '',
-        type: 'string[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getCompanies',
-    outputs: [
-      {
-        internalType: 'string[]',
-        name: '',
-        type: 'string[]',
-      },
-      {
-        internalType: 'address[]',
-        name: '',
-        type: 'address[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '',
-        type: 'uint256[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-    ],
     name: 'getCompany',
     outputs: [
       {
@@ -119,53 +109,19 @@ export const my_Contract_ABI = [
         type: 'string',
       },
       {
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+      {
         internalType: 'uint256',
         name: 'certificatesNumber',
         type: 'uint256',
       },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getCompanyID',
-    outputs: [
       {
         internalType: 'uint256',
-        name: '',
+        name: 'partnersNumber',
         type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-    ],
-    name: 'getPartners',
-    outputs: [
-      {
-        components: [
-          {
-            internalType: 'uint256',
-            name: 'id',
-            type: 'uint256',
-          },
-          {
-            internalType: 'string',
-            name: 'visibility',
-            type: 'string',
-          },
-        ],
-        internalType: 'struct CompanyFactory.Partners[]',
-        name: '',
-        type: 'tuple[]',
       },
     ],
     stateMutability: 'view',
@@ -174,44 +130,6 @@ export const my_Contract_ABI = [
   {
     inputs: [],
     name: 'numberOfCompanies',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_myCompanyID',
-        type: 'uint256',
-      },
-    ],
-    name: 'seeRequests',
-    outputs: [
-      {
-        internalType: 'uint256[]',
-        name: '',
-        type: 'uint256[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'userCompanies',
     outputs: [
       {
         internalType: 'uint256',

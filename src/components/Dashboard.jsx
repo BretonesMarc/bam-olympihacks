@@ -3,34 +3,39 @@ import logo from '../assets/ibm_logo.png'
 import { isoCertifications } from '../utils'
 import { useState } from 'react'
 
-const Dashboard = ({ myContract, account, companyID }) => {
+const Dashboard = ({ myContract, account }) => {
   const [certification, setCertification] = useState([])
   const [fullCompany, setFullCompany] = useState({
     name: '',
     location: '',
+    owner: 0,
     certificatesNumber: 0,
+    partnersNumber: 0,
   })
 
   const getCompany = async () => {
     try {
-      const company = await myContract.methods.getCompany(companyID).call()
+      const company = await myContract.methods.getCompany().call()
       setFullCompany({
         name: company.name,
         location: company.location,
+        owner: company.owner,
         certificatesNumber: company.certificatesNumber,
+        partnersNumber: company.partnersNumber,
       })
+      console.log(company)
     } catch (error) {
       console.error('Error getting company:', error)
     }
   }
 
   const getCertifications = async () => {
-    try {
-      const certifications = await myContract.methods.getCertifications().call()
-      setCertification(certifications)
-    } catch (error) {
-      console.error('Error getting certifications:', error)
-    }
+    // try {
+    //   const certifications = await myContract.methods.getCertifications().call()
+    //   setCertification(certifications)
+    // } catch (error) {
+    //   console.error('Error getting certifications:', error)
+    // }
   }
 
   useEffect(() => {

@@ -118,6 +118,7 @@ contract CompanyFactory{
             uint certificatesNumber
         )
     {
+        _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
         Company storage company = companies[_companyID];
         return (company.name, company.location, company.certificatesNumber);
     }
