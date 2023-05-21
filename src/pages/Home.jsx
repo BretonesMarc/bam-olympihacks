@@ -48,6 +48,7 @@ const Home = () => {
       const addresses = await myContract?.methods
         .getAddressesWithCompanies()
         .call()
+      console.log(addresses)
       if (addresses) {
         setAddressesCompany(addresses)
       }
@@ -65,6 +66,7 @@ const Home = () => {
   }, [myContract, account])
 
   useEffect(() => {
+    //console.log(account)
     const getCompany = async () => {
       try {
         const company = await myContract.methods.getCompany().call()
