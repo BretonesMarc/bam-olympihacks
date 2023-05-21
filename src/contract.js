@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0x30aA7Ef650AD5e1BF451C20992679B56b0E892Ce'
+export const my_Contract_Address = '0x6346301b59167712E742B33B8B8ec0F873C71009'
 export const my_Contract_ABI = [
   {
     inputs: [
@@ -150,9 +150,9 @@ export const my_Contract_ABI = [
   {
     inputs: [
       {
-        internalType: 'address',
+        internalType: 'uint256',
         name: '',
-        type: 'address',
+        type: 'uint256',
       },
     ],
     name: 'newCompanies',
@@ -185,6 +185,19 @@ export const my_Contract_ABI = [
       {
         internalType: 'uint256',
         name: 'partnersNumber',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'numberOfCompanies',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
         type: 'uint256',
       },
     ],
