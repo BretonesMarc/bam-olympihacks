@@ -20,8 +20,8 @@ Variables
   --lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
   --darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
   --mainBorderRadius: 0.25rem;
-  --smallWidth: 85vw;
-  --maxWidth: 40rem;
+  --smallWidth: 95vw;
+  --maxWidth: 55rem;
   --fullWidth: 1170px;
 }
 /* 
@@ -84,6 +84,9 @@ Navbar
   align-items: center;
   color: var(--headline);
 }
+.navbar-logo {
+  width: 2.5rem;
+}
 .nav-center {
   display: flex;
   justify-content: space-between;
@@ -101,9 +104,9 @@ Navbar
   display: inline-block;
   font-weight: bold;
   margin-right: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 2px;
-  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 1rem;
   padding: 0.25rem 0.5rem;
   transition: var(--mainTransition);
 }
@@ -114,6 +117,15 @@ Navbar
   width: 12rem;
 }
 
+@media screen and (min-width: 992px) {
+  .nav-links a {
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+  }
+}
+
+.nav-links a
 /* 
 ====== 
 Create Account
@@ -141,12 +153,14 @@ Create Account
 }
 
 .form-create input {
-  width: 100%;
+  width: 15rem;
+  margin: 0 auto;
   height: 2.5rem;
   border-radius: 0.5rem;
   border: transparent;
   padding: 0 1rem;
   font-size: 1.5rem;
+  transition: var(--mainTransition);
 }
 
 .form-create button {
@@ -166,8 +180,17 @@ Create Account
   transform: scale(1.05);
 }
 
-.single-form {
+.single-form input {
   margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 992px) {
+  .form-create input {
+    width: 30rem;
+  }
 }
 
 /* 
@@ -180,13 +203,17 @@ About
   max-width: var(--maxWidth);
   margin: 0 auto;
 }
+
+.about-section h1 {
+  margin: 2rem 0;
+}
+
 .about-section p {
   line-height: 2rem;
   font-weight: 400;
   letter-spacing: 2px;
 }
-
-/* 
+/*
 ====== 
 Home 
 ======
@@ -310,6 +337,11 @@ Home
     grid-gap: 0rem;
     margin-top: 1rem;
   }
+  .certifications-grid-2 {
+    display: flex;
+    width: 60vw;
+    margin: 0 auto;
+  }
 }
 
 @media screen and (min-width: 1270px) {
@@ -364,4 +396,111 @@ Error
   border-right: 1px solid #ccc;
   padding-right: 20px;
   /* Ajoutez d'autres styles selon vos besoins */
+}
+.companies {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.company-img {
+  width: 10rem;
+  margin-bottom: 1rem;
+}
+
+.companies-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.company-container {
+  background: var(--secondary);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 12rem;
+}
+
+.search-bar {
+  width: 90vw;
+  margin: 1rem auto;
+  display: grid;
+  place-items: center;
+}
+
+.search-bar input {
+  width: 20rem;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  border: transparent;
+}
+
+@media screen and (min-width: 768px) {
+  .companies-container {
+    display: grid;
+    place-items: center;
+    grid-row-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .companies-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 
+====== 
+Single Company
+======
+*/
+
+.single-company {
+  min-height: 100vh;
+}
+
+.single-company-container {
+  width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.single-company-container img {
+  width: 10rem;
+  margin: 2rem auto;
+}
+
+.single-company-container button {
+  padding: 1rem 1.5rem;
+  background: var(--button);
+  color: var(--button-text);
+  border: transparent;
+  border-radius: var(--mainBorderRadius);
+  font-size: 1rem;
+  margin-top: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  width: 10rem;
+  margin: 1rem auto;
+}
+
+.single-company-container h2,
+.single-company-container h4 {
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.single-company-container select {
+  width: 10rem;
+  margin: 0 auto;
+  height: 2rem;
 }

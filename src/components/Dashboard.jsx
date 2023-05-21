@@ -30,17 +30,17 @@ const Dashboard = ({ myContract, account }) => {
   }
 
   const getCertifications = async () => {
-    // try {
-    //   const certifications = await myContract.methods.getCertifications().call()
-    //   setCertification(certifications)
-    // } catch (error) {
-    //   console.error('Error getting certifications:', error)
-    // }
+    try {
+      const certifications = await myContract.methods.getCertifications().call()
+      setCertification(certifications)
+    } catch (error) {
+      console.error('Error getting certifications:', error)
+    }
   }
 
   useEffect(() => {
     getCompany()
-    // getCertifications()
+    getCertifications()
   }, [myContract])
 
   return (

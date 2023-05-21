@@ -1,4 +1,4 @@
-import { organizations, requestOrganizations } from '../utils'
+import { companies, requestOrganizations } from '../utils'
 import { MdNotificationsActive } from 'react-icons/md'
 import { useState } from 'react'
 
@@ -36,11 +36,11 @@ const SidePanel = ({ myContract, account }) => {
       <div className="underline-sidepanel"></div>
 
       <div>
-        <h2>Organizations</h2>
-        {organizations.map((organization) => {
+        <h2>Companies</h2>
+        {companies.map((company) => {
           return (
-            <div className="single-organization" key={organization.id}>
-              <h3>{organization.name}</h3>
+            <div className="single-organization" key={company.id}>
+              <h3>{company.name}</h3>
             </div>
           )
         })}

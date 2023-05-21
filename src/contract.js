@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0xbC473cC89ac0d3B060Edd908fdC5fDdB707de89c'
+export const my_Contract_Address = '0x0047744bFffdd93Ae002C9D0703B0Ac5d8AAf571'
 export const my_Contract_ABI = [
   {
     inputs: [],
@@ -20,11 +20,6 @@ export const my_Contract_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
       {
         internalType: 'string',
         name: '_iso',
@@ -159,13 +154,7 @@ export const my_Contract_ABI = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-    ],
+    inputs: [],
     name: 'getCertifications',
     outputs: [
       {
