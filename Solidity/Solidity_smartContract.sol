@@ -66,12 +66,21 @@ contract CompanyFactory {
         userCompanies[msg.sender] = companyID; // Stocker l'ID de la compagnie pour cet utilisateur
     }
 
-  function addCertifications(uint _companyID, string memory _iso) public {
+  function addCertifications(string memory _iso) public {
+        uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
+
         Company storage company = companies[_companyID];
         company.certificates[company.certificatesNumber++] = _iso;
     }
 
-    function getCertifications(uint _companyID) public view returns (string[] memory) {
+    function getCertifications() public view returns (string[] memory) {
+        uint _companyID = 0;
+         for (uint i = 0; i < numberOfCompanies; i++) {
+            if (userCompanies[companies[i].owner] == i) {
+                _companyID = companies[i].id;
+                break;
+            }
+        }
         Company storage company = companies[_companyID];
         string[] memory certificates = new string[](company.certificatesNumber);
         for (uint i = 0; i < company.certificatesNumber; i++) {
@@ -89,10 +98,13 @@ contract CompanyFactory {
         return partners;
     }
 
-    function getCompany(uint _companyID) public view returns (string memory name, string memory location, uint certificatesNumber) {
-        Company storage company = companies[_companyID];
-        return (company.name, company.location, company.certificatesNumber);
+    function getCompany() public view returns (string memory name, string memory location, uint certificatesNumber) {
+    uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
+
+    Company storage company = companies[_companyID];
+    return (company.name, company.location, company.certificatesNumber);
     }
+
 
       function getCompanies() public view returns (string[] memory, address[] memory) {
         string[] memory names = new string[](numberOfCompanies);
