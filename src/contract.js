@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0x59F512d019Ea2a8106bbb52fDc36417eE8f27655'
+export const my_Contract_Address = '0x08933C6cA852a3c207ADC09d0cADb7ba1B203cAc'
 export const my_Contract_ABI = [
   {
     inputs: [
@@ -89,12 +89,23 @@ export const my_Contract_ABI = [
         name: '',
         type: 'address[]',
       },
+      {
+        internalType: 'uint256[]',
+        name: '',
+        type: 'uint256[]',
+      },
     ],
     stateMutability: 'view',
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_companyID',
+        type: 'uint256',
+      },
+    ],
     name: 'getCompany',
     outputs: [
       {
@@ -112,10 +123,18 @@ export const my_Contract_ABI = [
         name: 'certificatesNumber',
         type: 'uint256',
       },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getCompanyID',
+    outputs: [
       {
-        internalType: 'address',
+        internalType: 'uint256',
         name: '',
-        type: 'address',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',

@@ -3,7 +3,7 @@ import logo from '../assets/ibm_logo.png'
 import { isoCertifications } from '../utils'
 import { useState } from 'react'
 
-const Dashboard = ({ myContract, account }) => {
+const Dashboard = ({ myContract, account, companyID }) => {
   const [certification, setCertification] = useState([])
   const [fullCompany, setFullCompany] = useState({
     name: '',
@@ -13,7 +13,7 @@ const Dashboard = ({ myContract, account }) => {
 
   const getCompany = async () => {
     try {
-      const company = await myContract.methods.getCompany().call()
+      const company = await myContract.methods.getCompany(companyID).call()
       setFullCompany({
         name: company.name,
         location: company.location,

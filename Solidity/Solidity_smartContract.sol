@@ -99,25 +99,43 @@ contract CompanyFactory{
         return partners;
     }
 
-    function getCompany() public view returns (string memory name, string memory location, uint certificatesNumber, address) {
-        uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
+    // function getCompany() public view returns (string memory name, string memory location, uint certificatesNumber, address) {
+    //     uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
         
         
+    //     Company storage company = companies[_companyID];
+    //     return (company.name, company.location, company.certificatesNumber, msg.sender);
+    // }
+
+    function getCompany(
+        uint _companyID
+    )
+        public
+        view
+        returns (
+            string memory name,
+            string memory location,
+            uint certificatesNumber
+        )
+    {
         Company storage company = companies[_companyID];
-        return (company.name, company.location, company.certificatesNumber, msg.sender);
+        return (company.name, company.location, company.certificatesNumber);
     }
 
 
-      function getCompanies() public view returns (string[] memory, address[] memory) {
+
+      function getCompanies() public view returns (string[] memory, address[] memory, uint[] memory) {
         string[] memory names = new string[](numberOfCompanies);
         address[] memory ownersList = new address[](numberOfCompanies);
+        uint[] memory ids = new uint[](numberOfCompanies);
 
         for (uint i = 0; i < numberOfCompanies; i++) {
             names[i] = companies[i].name;
             ownersList[i] = companies[i].owner;
+            ids[i] = companies[i].id;
         }
 
-        return (names, ownersList);
+        return (names, ownersList, ids);
     }
 
     function addPartner(uint _myCompanyID, uint _companyID) public {
