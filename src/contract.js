@@ -1,22 +1,9 @@
-export const my_Contract_Address = '0x0047744bFffdd93Ae002C9D0703B0Ac5d8AAf571'
+export const my_Contract_Address = '0xa277c89EF8Ebf850845B704dAAe89e83C1445595'
 export const my_Contract_ABI = [
   {
     inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'company',
-        type: 'address',
-      },
-    ],
-    name: 'addAuthorizedCompany',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
   },
   {
     inputs: [
@@ -134,6 +121,11 @@ export const my_Contract_ABI = [
         name: '_location',
         type: 'string',
       },
+      {
+        internalType: 'string',
+        name: '_uRL',
+        type: 'string',
+      },
     ],
     name: 'createCompany',
     outputs: [],
@@ -185,6 +177,11 @@ export const my_Contract_ABI = [
         name: '',
         type: 'uint256[]',
       },
+      {
+        internalType: 'string[]',
+        name: '',
+        type: 'string[]',
+      },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -212,6 +209,11 @@ export const my_Contract_ABI = [
         internalType: 'address',
         name: '',
         type: 'address',
+      },
+      {
+        internalType: 'string',
+        name: 'uRL',
+        type: 'string',
       },
     ],
     stateMutability: 'view',
@@ -355,19 +357,6 @@ export const my_Contract_ABI = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'company',
-        type: 'address',
-      },
-    ],
-    name: 'removeAuthorizedCompany',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {

@@ -13,11 +13,13 @@ const Home = () => {
   const [company, setCompany] = useState({
     name: '',
     location: '',
+    uRL: '',
   })
   const [fullCompany, setFullCompany] = useState({
     name: '',
     location: '',
     certificatesNumber: 0,
+    uRL: '',
   })
 
   const handleChange = (e) => {
@@ -74,6 +76,7 @@ const Home = () => {
           name: company.name,
           location: company.location,
           certificatesNumber: company.certificatesNumber,
+          uRL: company.uRL,
         })
       } catch (error) {
         console.error('Error getting company:', error)
@@ -89,7 +92,7 @@ const Home = () => {
     e.preventDefault()
     try {
       await myContract.methods
-        .createCompany(company.name, company.location)
+        .createCompany(company.name, company.location, company.url)
         .send({ from: account })
       getAddressesWithCompanies()
       console.log('Company created successfully.')

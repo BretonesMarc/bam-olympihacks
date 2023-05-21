@@ -16,7 +16,7 @@ const SidePanel = ({ myContract, account }) => {
     }
   }
   return (
-    <section className="side-panel">
+    <section className="side-panel scrollable">
       <form onSubmit={addCertifications}>
         <h2>Add Certifications</h2>
         <input

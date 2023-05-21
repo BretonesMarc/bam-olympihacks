@@ -11,6 +11,7 @@ const Dashboard = ({ myContract, account }) => {
     owner: 0,
     certificatesNumber: 0,
     partnersNumber: 0,
+    uRL: '',
   })
 
   const getCompany = async () => {
@@ -22,8 +23,8 @@ const Dashboard = ({ myContract, account }) => {
         owner: company.owner,
         certificatesNumber: company.certificatesNumber,
         partnersNumber: company.partnersNumber,
+        uRL: company.uRL,
       })
-      console.log(company)
     } catch (error) {
       console.error('Error getting company:', error)
     }
@@ -33,6 +34,7 @@ const Dashboard = ({ myContract, account }) => {
     try {
       const certifications = await myContract.methods.getCertifications().call()
       setCertification(certifications)
+      console.log(certifications)
     } catch (error) {
       console.error('Error getting certifications:', error)
     }
@@ -45,7 +47,8 @@ const Dashboard = ({ myContract, account }) => {
 
   return (
     <section className="board">
-      <img src={logo} alt="logo" className="board-logo" />
+      <img src={fullCompany.uRL} alt="logo" className="board-logo" />
+
       <h3>Company : {fullCompany.name}</h3>
       <h3>Location: {fullCompany.location}</h3>
       <div className="certifications-container">

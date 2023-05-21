@@ -83,6 +83,7 @@ Navbar
   display: flex;
   align-items: center;
   color: var(--headline);
+  box-shadow: 0 8px 4px rgba(0, 0, 0, 0.8);
 }
 .navbar-logo {
   width: 2.5rem;
@@ -234,7 +235,7 @@ Home
   display: flex;
   flex-direction: column;
   width: var(--smallWidth);
-  margin: 0 auto;
+  margin: 0rem auto;
   max-width: var(--fullWidth);
   /* align-items: center; */
 }
@@ -299,6 +300,11 @@ Home
   width: 80%;
   height: 0.25rem;
   margin: 1rem auto;
+}
+
+.single-organization {
+  display: grid;
+  place-items: center;
 }
 
 .request {
@@ -398,7 +404,7 @@ Error
   /* Ajoutez d'autres styles selon vos besoins */
 }
 .companies {
-  min-height: 100vh;
+  min-height: calc(100vh - 5rem);
   display: flex;
   flex-direction: column;
 }
@@ -522,6 +528,7 @@ Cloud
 }
 
 .file-upload h1 {
+  padding-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -538,4 +545,18 @@ Cloud
   cursor: pointer;
   width: 10rem;
   margin: 1rem auto;
+}
+
+.single-organization {
+  background: var(--headline);
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+}
+
+.single-organization h3 {
+  color: #16161a;
+}
+
+.scrollable {
+  overflow: auto;
 }

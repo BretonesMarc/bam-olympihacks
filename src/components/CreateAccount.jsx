@@ -25,6 +25,18 @@ const CreateAccount = ({ company, createCompany, handleChange }) => {
           />
         </div>
 
+        <div className="single-form">
+          <label htmlFor="url">Image</label>
+          <input
+            type="string"
+            id="url"
+            name="url"
+            required
+            value={company.url}
+            onChange={handleChange}
+          />
+        </div>
+
         <button type="submit">Create Company</button>
       </form>
     </main>
