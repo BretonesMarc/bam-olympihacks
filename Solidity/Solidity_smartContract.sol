@@ -1,6 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.6.0 <0.9.0;
-
 contract CompanyFactory {
     struct Partners {
         uint id;
@@ -31,7 +28,7 @@ contract CompanyFactory {
 
         // Count the number of addresses with companies
         for (uint i = 0; i < numberOfCompanies; i++) {
-            if (userCompanies[companies[i].owner] == i + 1) {
+            if (userCompanies[companies[i].owner] == i) {
                 count++;
             }
         }
@@ -42,7 +39,7 @@ contract CompanyFactory {
         // Populate the array with addresses
         uint index = 0;
         for (uint i = 0; i < numberOfCompanies; i++) {
-            if (userCompanies[companies[i].owner] == i + 1) {
+            if (userCompanies[companies[i].owner] == i) {
                 addressesWithCompanies[index] = companies[i].owner;
                 index++;
             }
@@ -63,27 +60,24 @@ contract CompanyFactory {
         newCompany.owner = msg.sender;
         newCompany.id = companyID;
 
-        userCompanies[msg.sender] = companyID + 1; // Stocker l'ID de la compagnie pour cet utilisateur
+        userCompanies[msg.sender] = companyID; // Stocker l'ID de la compagnie pour cet utilisateur
     }
 
-    function addCertifications(string memory _iso) public {
+  function addCertifications(string memory _iso) public {
         uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
-
-        // Validation
-        require(_companyID > 0, "No company associated with this account.");
-        _companyID -= 1; // Adjust to match companyID in companies mapping
 
         Company storage company = companies[_companyID];
         company.certificates[company.certificatesNumber++] = _iso;
     }
 
     function getCertifications() public view returns (string[] memory) {
-        uint _companyID = userCompanies[msg.sender];
-
-        // Validation
-        require(_companyID > 0, "No company associated with this account.");
-        _companyID -= 1; // Adjust to match companyID in companies mapping
-
+        uint _companyID = 0;
+         for (uint i = 0; i < numberOfCompanies; i++) {
+            if (userCompanies[companies[i].owner] == i) {
+                _companyID = companies[i].id;
+                break;
+            }
+        }
         Company storage company = companies[_companyID];
         string[] memory certificates = new string[](company.certificatesNumber);
         for (uint i = 0; i < company.certificatesNumber; i++) {
@@ -102,17 +96,14 @@ contract CompanyFactory {
     }
 
     function getCompany() public view returns (string memory name, string memory location, uint certificatesNumber) {
-        uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
+    uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
 
-        // Validation
-        require(_companyID > 0, "No company associated with this account.");
-        _companyID -= 1; // Adjust to match companyID in companies mapping
-
-        Company storage company = companies[_companyID];
-        return (company.name, company.location, company.certificatesNumber);
+    Company storage company = companies[_companyID];
+    return (company.name, company.location, company.certificatesNumber);
     }
 
-    function getCompanies() public view returns (string[] memory, address[] memory) {
+
+      function getCompanies() public view returns (string[] memory, address[] memory) {
         string[] memory names = new string[](numberOfCompanies);
         address[] memory ownersList = new address[](numberOfCompanies);
 
