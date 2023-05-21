@@ -3,6 +3,7 @@ import { useState } from 'react'
 const Cloud = () => {
   const [fileName, setFileName] = useState('')
   const [fid, setFid] = useState('')
+  const [isUploaded, setIsUploaded] = useState(false)
 
   const handleUpload = (event) => {
     event.preventDefault()
@@ -34,6 +35,7 @@ const Cloud = () => {
           // Handle any error that occurred during upload
         })
     }
+    setIsUploaded(true)
   }
 
   const handleDownload = (event) => {
@@ -58,26 +60,30 @@ const Cloud = () => {
   }
 
   return (
-    <div>
-      <h1>File Upload Example</h1>
-      <form
-        id="uploadForm"
-        encType="multipart/form-data"
-        onSubmit={handleUpload}
-      >
-        <input type="file" name="file" />
-        <button type="submit">Upload</button>
-      </form>
+    <main className="file">
+      <section className="file-upload">
+        <h1>Upload your files to Jackal!</h1>
+        <form
+          id="uploadForm"
+          encType="multipart/form-data"
+          onSubmit={handleUpload}
+        >
+          <input type="file" name="file" />
+          <button type="submit">Upload</button>
+        </form>
 
-      <form
-        id="downloadForm"
-        encType="multipart/form-data"
-        onSubmit={handleDownload}
-      >
-        <label>{fileName}</label>
-        <button type="submit">Download</button>
-      </form>
-    </div>
+        {isUploaded && (
+          <form
+            id="downloadForm"
+            encType="multipart/form-data"
+            onSubmit={handleDownload}
+          >
+            <label>{fileName}</label>
+            <button type="submit">Download</button>
+          </form>
+        )}
+      </section>
+    </main>
   )
 }
 
