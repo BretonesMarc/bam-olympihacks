@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0x43a660D3Ce5ACDdC3de713f028BE39D78e866826'
+export const my_Contract_Address = '0x59F512d019Ea2a8106bbb52fDc36417eE8f27655'
 export const my_Contract_ABI = [
   {
     inputs: [
@@ -47,6 +47,19 @@ export const my_Contract_ABI = [
     name: 'createCompany',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getAddressesWithCompanies',
+    outputs: [
+      {
+        internalType: 'address[]',
+        name: '',
+        type: 'address[]',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -109,7 +122,13 @@ export const my_Contract_ABI = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_companyID',
+        type: 'uint256',
+      },
+    ],
     name: 'getPartners',
     outputs: [
       {
@@ -128,6 +147,50 @@ export const my_Contract_ABI = [
         internalType: 'struct CompanyFactory.Partners[]',
         name: '',
         type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    name: 'newCompanies',
+    outputs: [
+      {
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+      {
+        internalType: 'string',
+        name: 'location',
+        type: 'string',
+      },
+      {
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'certificatesNumber',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'partnersNumber',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -171,11 +234,6 @@ export const my_Contract_ABI = [
         internalType: 'address',
         name: '',
         type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
       },
     ],
     name: 'userCompanies',

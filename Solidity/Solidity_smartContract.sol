@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.6.0 <0.9.0;
 
-contract CompanyFactory {
+contract CompanyFactory{
     struct Partners {
         uint id;
         string visibility;
@@ -21,10 +21,11 @@ contract CompanyFactory {
         mapping(uint => Partners) partners;
     }
 
-    uint numberOfCompanies = 0;
+    uint public numberOfCompanies = 0;
     mapping(uint => Company) companies;
+    mapping(address => uint) public userCompanies;
 
-    mapping(address => uint) public userCompanies; 
+    Company[] public newCompanies;
 
     function getAddressesWithCompanies() public view returns (address[] memory) {
         uint count = 0;
@@ -53,9 +54,7 @@ contract CompanyFactory {
 
     // Create a new company
     function createCompany(string memory _name, string memory _location) public {
-        require(userCompanies[msg.sender] == 0, "You can only create one company");
-
-        uint companyID = numberOfCompanies++;
+        uint companyID = numberOfCompanies;
 
         Company storage newCompany = companies[companyID];
         newCompany.name = _name;
@@ -64,13 +63,15 @@ contract CompanyFactory {
         newCompany.id = companyID;
 
         userCompanies[msg.sender] = companyID; // Stocker l'ID de la compagnie pour cet utilisateur
+        numberOfCompanies = numberOfCompanies + 1;
     }
 
-  function addCertifications(string memory _iso) public {
+    function addCertifications(string memory _iso) public {
         uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
 
         Company storage company = companies[_companyID];
         company.certificates[company.certificatesNumber++] = _iso;
+
     }
 
     function getCertifications() public view returns (string[] memory) {
@@ -98,11 +99,12 @@ contract CompanyFactory {
         return partners;
     }
 
-    function getCompany() public view returns (string memory name, string memory location, uint certificatesNumber) {
-    uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
-
-    Company storage company = companies[_companyID];
-    return (company.name, company.location, company.certificatesNumber);
+    function getCompany() public view returns (string memory name, string memory location, uint certificatesNumber, address) {
+        uint _companyID = userCompanies[msg.sender]; // Utiliser l'adresse du message pour trouver l'ID de la compagnie associée
+        
+        
+        Company storage company = companies[_companyID];
+        return (company.name, company.location, company.certificatesNumber, msg.sender);
     }
 
 
