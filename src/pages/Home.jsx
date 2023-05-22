@@ -96,7 +96,7 @@ const Home = () => {
       .send({ from: account })
     setTimeout(() => {
       getAddressesWithCompanies()
-    }, 50000)
+    }, 40000)
     console.log('Company created successfully.')
   }
 

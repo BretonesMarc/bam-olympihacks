@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0x330198AD44E4aA39476aFf7B762e3AE0EE711e8e'
+export const my_Contract_Address = '0x7072cBB2BaC0F297e7397Fb2D83Cf51CF1479926'
 export const my_Contract_ABI = [
   {
     inputs: [],
@@ -22,11 +22,6 @@ export const my_Contract_ABI = [
     inputs: [
       {
         internalType: 'uint256',
-        name: '_myCompanyID',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
         name: '_companyID',
         type: 'uint256',
       },
@@ -38,11 +33,6 @@ export const my_Contract_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_myCompanyID',
-        type: 'uint256',
-      },
       {
         internalType: 'uint256',
         name: '_companyID',
@@ -58,11 +48,6 @@ export const my_Contract_ABI = [
     inputs: [
       {
         internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
         name: '_statistics',
         type: 'uint256',
       },
@@ -74,11 +59,6 @@ export const my_Contract_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: '_myCompanyID',
-        type: 'uint256',
-      },
       {
         internalType: 'uint256',
         name: '_companyID',
@@ -115,49 +95,8 @@ export const my_Contract_ABI = [
   },
   {
     inputs: [],
-    name: 'getAddressesWithCompanies',
-    outputs: [
-      {
-        internalType: 'address[]',
-        name: '',
-        type: 'address[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
     name: 'getCertifications',
     outputs: [
-      {
-        internalType: 'string[]',
-        name: '',
-        type: 'string[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getCompanies',
-    outputs: [
-      {
-        internalType: 'string[]',
-        name: '',
-        type: 'string[]',
-      },
-      {
-        internalType: 'address[]',
-        name: '',
-        type: 'address[]',
-      },
-      {
-        internalType: 'uint256[]',
-        name: '',
-        type: 'uint256[]',
-      },
       {
         internalType: 'string[]',
         name: '',
@@ -216,11 +155,6 @@ export const my_Contract_ABI = [
     name: 'getPartnerInfo',
     outputs: [
       {
-        internalType: 'string[]',
-        name: '',
-        type: 'string[]',
-      },
-      {
         components: [
           {
             internalType: 'uint256',
@@ -247,13 +181,7 @@ export const my_Contract_ABI = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-    ],
+    inputs: [],
     name: 'getPartners',
     outputs: [
       {
@@ -278,50 +206,13 @@ export const my_Contract_ABI = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-    ],
+    inputs: [],
     name: 'getStatistics',
     outputs: [
       {
         internalType: 'uint256[]',
         name: '',
         type: 'uint256[]',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_companyID',
-        type: 'uint256',
-      },
-    ],
-    name: 'getVisibilityLevel',
-    outputs: [
-      {
-        components: [
-          {
-            internalType: 'uint256',
-            name: 'id',
-            type: 'uint256',
-          },
-          {
-            internalType: 'string',
-            name: 'visibility',
-            type: 'string',
-          },
-        ],
-        internalType: 'struct CompanyFactory.Partners[]',
-        name: '',
-        type: 'tuple[]',
       },
     ],
     stateMutability: 'view',
