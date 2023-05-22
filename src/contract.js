@@ -1,4 +1,4 @@
-export const my_Contract_Address = '0xa277c89EF8Ebf850845B704dAAe89e83C1445595'
+export const my_Contract_Address = '0xe0cCe75f3Cf9570B0aAc501F633FbF0a79e1e0cf'
 export const my_Contract_ABI = [
   {
     inputs: [],
@@ -88,25 +88,6 @@ export const my_Contract_ABI = [
     name: 'addTransparentPartner',
     outputs: [],
     stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    name: 'authorizedCompanies',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
     type: 'function',
   },
   {

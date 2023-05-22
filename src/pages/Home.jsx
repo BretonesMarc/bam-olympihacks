@@ -90,15 +90,14 @@ const Home = () => {
 
   const createCompany = async (e) => {
     e.preventDefault()
-    try {
-      await myContract.methods
-        .createCompany(company.name, company.location, company.url)
-        .send({ from: account })
+
+    myContract.methods
+      .createCompany(company.name, company.location, company.uRL)
+      .send({ from: account })
+    setTimeout(() => {
       getAddressesWithCompanies()
-      console.log('Company created successfully.')
-    } catch (error) {
-      console.error('Error creating company:', error)
-    }
+    }, 50000)
+    console.log('Company created successfully.')
   }
 
   const addPartner = async () => {
